@@ -3,8 +3,10 @@ package com.nruharish.spring6.webapp.bootstrap;
 
 import com.nruharish.spring6.webapp.domain.Author;
 import com.nruharish.spring6.webapp.domain.Book;
+import com.nruharish.spring6.webapp.domain.Publisher;
 import com.nruharish.spring6.webapp.repositories.AuthorRepository;
 import com.nruharish.spring6.webapp.repositories.BookRepository;
+import com.nruharish.spring6.webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +15,12 @@ public class BootStrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootStrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -51,6 +55,16 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println("In bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
         System.out.println("Book Count: " + bookRepository.count());
+
+        Publisher wrox = new Publisher();
+        wrox.setPublisherName("Wrox");
+        wrox.setCity("Birmingham");
+        wrox.setZip("1234");
+        wrox.setState("London");
+        wrox.setAddress("1st down street");
+        Publisher savedWrox = publisherRepository.save(wrox);
+        System.out.println("Publisher Count: " + publisherRepository.count());
+
 
     }
 }
